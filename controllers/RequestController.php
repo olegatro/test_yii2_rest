@@ -21,6 +21,7 @@ class RequestController extends ActiveController
     {
         $actions = parent::actions();
 
+        // фильтрация по статусу и дате создания
         $actions['index']['dataFilter'] = [
             'class' => ActiveDataFilter::class,
             'searchModel' => (new DynamicModel(['status']))
@@ -35,6 +36,7 @@ class RequestController extends ActiveController
     {
         $behaviors = parent::behaviors();
 
+        // разные варианты аутентификации
         $behaviors['authenticator'] = [
             'class' => CompositeAuth::class,
             'authMethods' => [
@@ -48,6 +50,7 @@ class RequestController extends ActiveController
         $auth = $behaviors['authenticator'];
         unset($behaviors['authenticator']);
 
+        // cors
         $behaviors['corsFilter'] = [
             'class' => Cors::class,
             'cors' => [
